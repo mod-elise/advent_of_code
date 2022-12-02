@@ -8,3 +8,9 @@ def create_list_of_sums (calories):
             calorie_sums.append(cal_sum)
             cal_sum = 0
     return calorie_sums
+
+def evaluate_tournament (rounds,map):
+    total_sum = 0
+    for round in rounds:
+        total_sum = total_sum + map[round.rstrip('\n')]
+    return total_sum
