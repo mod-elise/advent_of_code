@@ -1,5 +1,6 @@
-def evaluate_round (round):
-    res_map = {
+import aoc_functions
+
+wrong_map =  {
         'A X' : 4,
         'A Y' : 8,
         'A Z' : 3,
@@ -10,13 +11,21 @@ def evaluate_round (round):
         'C Y' : 2,
         'C Z' : 6
     }
-    return res_map[round]
+
+right_map = {
+        'A X' : 3,
+        'A Y' : 4,
+        'A Z' : 8,
+        'B X' : 1,
+        'B Y' : 5,
+        'B Z' : 9,
+        'C X' : 2,
+        'C Y' : 6,
+        'C Z' : 7
+}
 
 with open('day2_input_file') as f:
     rounds = f.readlines()
 
-total_sum = 0
-for round in rounds:
-    total_sum = total_sum +  evaluate_round(round.rstrip('\n'))
-
-print (total_sum)
+print ("Wrong sum = ", str(aoc_functions.evaluate_tournament(rounds, wrong_map)))
+print ("Right sum = ", str(aoc_functions.evaluate_tournament(rounds, right_map)))
