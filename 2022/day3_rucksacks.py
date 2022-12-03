@@ -12,7 +12,7 @@ for rucksack in rucksacks:
     else:
         elf_group.append(rucksack)
         badge=aoc_functions.get_duplicate(elf_group)
-        priority_sum = priority_sum + aoc_functions.get_priority(badge)
+        priority_sum +=  aoc_functions.get_priority(badge)
         elf_group = []
 
 print (priority_sum)

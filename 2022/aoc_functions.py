@@ -3,7 +3,7 @@ def create_list_of_sums (calories):
     calorie_sums = []
     for calorie in calories:
         if calorie != '\n':
-            cal_sum = cal_sum + int(calorie)
+            cal_sum += int(calorie)
         else:
             calorie_sums.append(cal_sum)
             cal_sum = 0
@@ -12,7 +12,7 @@ def create_list_of_sums (calories):
 def evaluate_tournament (rounds,map):
     total_sum = 0
     for round in rounds:
-        total_sum = total_sum + map[round.rstrip('\n')]
+        total_sum += map[round.rstrip('\n')]
     return total_sum
 
 def sum_duplicate_priorities(rucksacks):
@@ -21,7 +21,7 @@ def sum_duplicate_priorities(rucksacks):
         compartment1, compartment2 = rucksack[:len(rucksack)//2], rucksack[len(rucksack)//2:]
         comp1list, comp2list = list(compartment1), list(compartment2)
         error_item = str((set(comp1list).intersection(comp2list)))[2]
-        priority_sum = priority_sum + get_priority(error_item)
+        priority_sum += get_priority(error_item)
     return priority_sum
 
 def get_priority(error_item):
