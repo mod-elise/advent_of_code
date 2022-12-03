@@ -1,17 +1,18 @@
+import aoc_functions
 
 with open('day3_input_file') as f:
     rucksacks = f.readlines()
+print (aoc_functions.sum_duplicate_priorities(rucksacks))
 
+elf_group =[]
 priority_sum = 0
 for rucksack in rucksacks:
-    compartment1, compartment2 = rucksack[:len(rucksack)//2], rucksack[len(rucksack)//2:]
-    comp1list, comp2list = list(compartment1), list(compartment2)
-    error_item = str((set(comp1list).intersection(comp2list)))[2]
-    if error_item.islower():
-        
-        priority_sum = priority_sum + (ord(error_item) - 96)
+    if (rucksacks.index(rucksack)+1) % 3 != 0:
+        elf_group.append(rucksack)
     else:
-        priority_sum = priority_sum + (ord(error_item) - 38)
+        elf_group.append(rucksack)
+        badge=aoc_functions.get_duplicate(elf_group)
+        priority_sum = priority_sum + aoc_functions.get_priority(badge)
+        elf_group = []
 
 print (priority_sum)
-     
