@@ -8,7 +8,6 @@ anyOverlap = 0
 
 for assignment in assignments:
     pairList = aoc_functions.parse_into_pairs(assignment)
-    print (pairList)
     if aoc_functions.isContained(pairList[0], pairList[1]):
         containedCount += 1
     elif aoc_functions.isContained(pairList[1], pairList[0]):
