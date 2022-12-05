@@ -8,11 +8,9 @@ def make_move (moveArray, Ship, version):
             print ("trying to remove from empty stack?")
             exit()
         removedArray.append(removed)
-    if version == '9000':
-        Ship[int(moveArray[2])].extend(removedArray)
-    else:
+    if version == '9001':
         removedArray.reverse()   
-        Ship[int(moveArray[2])].extend(removedArray)
+    Ship[int(moveArray[2])].extend(removedArray)
     return Ship
     
 with open('day5_input_file') as f:
