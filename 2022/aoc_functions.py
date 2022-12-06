@@ -65,3 +65,25 @@ def isOverlap (range1, range2):
         return (True)
     if (int(range1[1])>= int(range2[0])) and (int(range1[1])<=int(range2[1])):
         return (True)
+
+def isStart(signal):
+    for letter in signal:
+        if signal.count(letter)>1:
+            return False
+        else:
+            continue
+    return True
+
+def scanSignals(signal_letters, target_length):
+    signal = ''
+    position = 0
+
+    for signal_letter in signal_letters:
+        signal = signal + signal_letter
+        position += 1
+        if len(signal)<target_length:
+            continue
+        if len(signal)>target_length:
+            signal = signal[1:]
+        if isStart(signal):
+            return ([signal, position])
