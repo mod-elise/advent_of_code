@@ -1,5 +1,4 @@
 def directoryExists(directory):
-  #  if directory not in pwd:
     if directory not in directories.keys():
         return False
     return True
@@ -70,10 +69,8 @@ usedSpace       = sum(directories.values())
 freeSpace       = diskSize - usedSpace
 needToClear     = spaceNeeded - freeSpace
 clearCandidates = []
-sizeList = []
 
 for child in childSizeDict:
-    sizeList.append(childSizeDict[child])
     if childSizeDict[child] >= needToClear:
         clearCandidates.append(childSizeDict[child])
 
