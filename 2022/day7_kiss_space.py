@@ -1,5 +1,6 @@
 def directoryExists(directory):
-    if directory not in pwd:
+  #  if directory not in pwd:
+    if directory not in directories.keys():
         return False
     return True
 
@@ -62,7 +63,7 @@ for dir in directories:
     childSizeDict[dir]  = childSize
     if childSize <= 100000:
         smallDirSum += childSize
-print (smallDirSum)
+print (f'The sum of directories no more than 100,000 in size is {smallDirSum:,}')
 
 #part 2
 usedSpace       = sum(directories.values())
@@ -76,6 +77,5 @@ for child in childSizeDict:
     if childSizeDict[child] >= needToClear:
         clearCandidates.append(childSizeDict[child])
 
-#well, something doesn't work! :( )
-print (f'IF you delete the folder with size {min(clearCandidates)} you win')
+print (f'IF you delete the folder with size {min(clearCandidates):,} you win')
 
