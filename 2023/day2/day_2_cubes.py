@@ -40,7 +40,6 @@ def check_possible(rounds):
     return possible
 
 for game in games:
-    possible = True
     game_id_index = game.find(":")
     game_substr = game[:game_id_index]
     rounds = game[game_id_index+1:]
