@@ -1,6 +1,5 @@
 import random
 
-# read a file into a variable until a new line is reached then read the rest into another variable
 with open('test.txt') as f:
     lines = f.read().splitlines()
 
