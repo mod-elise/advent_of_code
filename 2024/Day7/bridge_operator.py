@@ -1,15 +1,22 @@
 import itertools
 import time
+from multiprocessing import Pool
+from functools import lru_cache
+
 with open('input.txt') as f:
     lines = f.read().splitlines()
 
+
+@lru_cache(maxsize=5000)
 def perform_operation (operator, num1, num2):
     if operator == '+':
-        return num1 + num2
+        result = num1 + num2
     elif operator == '*':
-        return num1 * num2
+        result = num1 * num2
     elif operator == 'C':
-        return int(str(num1) + str(num2))
+        result = int(str(num1) + str(num2))
+
+    return result
 
 def is_Valid (value,  numbers, operator_combos):
     for operator_combo in operator_combos:
@@ -23,7 +30,6 @@ def is_Valid (value,  numbers, operator_combos):
                   return True
     return False
 
-
 def calibrate(callibration_list, operators):
     total = 0
     operator_combos = {i: list(itertools.product(operators, repeat=i)) for i in range(11)}
@@ -32,7 +38,8 @@ def calibrate(callibration_list, operators):
         total_operators = len(callibration['numbers']) - 1
         sorted_combinations = operator_combos.get(total_operators,
                                                   list(itertools.product(operators, repeat=total_operators)))
-        if is_Valid(callibration['value'], callibration['numbers'], sorted_combinations):
+        is_calibration_valid = is_Valid(callibration['value'], callibration['numbers'], sorted_combinations)
+        if is_calibration_valid:
             total += callibration['value']
     return total
 
@@ -48,11 +55,12 @@ for line in lines:
 #calcuate time it takes to complete
 start_time = time.time()
 operators = ['+', '*']
-print (f'Part 1: {calibrate(callibration_list, operators)}')
+part1_answer = calibrate(callibration_list, operators)
+print (f'Part 1: {part1_answer}')
 print ("--- %s seconds ---" % (time.time() - start_time)) # 0.5 seconds on my machine
-
 start_time = time.time()
 operators = ['+', '*', 'C']
 total = 0
-print (f'Part 2: {calibrate(callibration_list, operators)}')
-print ("--- %s seconds ---" % (time.time() - start_time)) # 45 seconds on my machine
+part2_answer = calibrate(callibration_list, operators)
+print (f'Part 2: {part2_answer}')
+print ("--- %s seconds ---" % (time.time() - start_time)) # 36 seconds on my machine
