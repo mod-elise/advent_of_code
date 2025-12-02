@@ -32,7 +32,7 @@ for id_range in id_range_list:
             if left_half == right_half:
                 invalid_id_codes_pt1.append(id_code_str)
 
-        # part 2
+        # part 2.
         if isInvalidCode(id_code_str, code_length):
             invalid_id_codes_pt2.append(id_code_str)
  
