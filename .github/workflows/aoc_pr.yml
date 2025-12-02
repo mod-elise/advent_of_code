@@ -1,0 +1,53 @@
+name: run python script on PR
+
+on:
+  pull_request:
+    paths:
+      - "**/*.py"
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Detect changed Python file
+        id: detect
+        run: |
+          # Find added/modified .py files in the PR
+          FILE=$(gh pr diff ${{ github.event.pull_request.number }} --name-only | grep '\.py$' | head -n 1)
+          if [ -z "$FILE" ]; then
+            echo "No python files changed."
+            echo "file=" >> $GITHUB_OUTPUT
+          else
+            echo "Detected python file: $FILE"
+            echo "file=$FILE" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run the Python script
+        id: runscript
+        if: steps.detect.outputs.file != ''
+        run: |
+          OUTPUT=$(python "${{ steps.detect.outputs.file }}")
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR with output
+        if: steps.detect.outputs.file != ''
+        uses: github-actions-ecosystem/action-create-comment@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            🐍 **Python Script Output**
+            **File:** `${{ steps.detect.outputs.file }}`
+            ```
+            ${{ steps.runscript.outputs.output }}
+            ```
