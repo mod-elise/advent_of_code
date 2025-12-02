@@ -1,6 +1,10 @@
-with open("input.txt", "r") as file:
-    id_range_list = file.read().split(',')
-
+try:
+    with open('input.txt', 'r') as file:
+        print ("found file")
+        id_range_list = file.read().split(',')
+except FileNotFoundError:
+        print ("file not found, using hardcoded ranges")
+        id_range_list = "11-22,95-120,998-1012,1188511880-1188511892,222220-222225,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124".split(',')
 
 def is_even_length(id_code):
     return len(id_code) % 2 == 0
