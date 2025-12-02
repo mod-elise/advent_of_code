@@ -2,8 +2,6 @@ name: run python script on PR
 
 on:
   pull_request:
-    paths:
-      - "**/*.py"
 
 jobs:
   run-script:
