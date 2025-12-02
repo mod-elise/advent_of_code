@@ -18,6 +18,8 @@ jobs:
 
       - name: Detect changed Python file
         id: detect
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           # Find added/modified .py files in the PR
           FILE=$(gh pr diff ${{ github.event.pull_request.number }} --name-only | grep '\.py$' | head -n 1)
