@@ -78,6 +78,7 @@ adj_coords = generate_coords()
 available = getListOfAvailable()
 print (f'Totally initial available: {len(available)}')
 
+#----Part 2----
 can_be_removed = 0
 while len(available) > 0:
     available = getListOfAvailable()
