@@ -1,5 +1,5 @@
 try:
-    with open('in33put.txt', 'r') as file:
+    with open('input.txt', 'r') as file:
         print ("found file")
         rows = file.read().splitlines()
 except FileNotFoundError:
@@ -28,12 +28,12 @@ def isInRange(id, ranges):
             return True, upperVal  
     return False, 0
 
-def allIdsInRange(theRange):
-    allIds = []
-    lowerVal, upperVal = getRangeEdges(theRange)
-    for i in range(lowerVal, upperVal+1):
-        allIds.append(i)
-    return allIds
+# def allIdsInRange(theRange):
+#     allIds = []
+#     lowerVal, upperVal = getRangeEdges(theRange)
+#     for i in range(lowerVal, upperVal+1):
+#         allIds.append(i)
+#     return allIds
 
 def getGlobalHighest(ranges):
     globalHighest = 0
