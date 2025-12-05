@@ -28,13 +28,6 @@ def isInRange(id, ranges):
             return True, upperVal  
     return False, 0
 
-# def allIdsInRange(theRange):
-#     allIds = []
-#     lowerVal, upperVal = getRangeEdges(theRange)
-#     for i in range(lowerVal, upperVal+1):
-#         allIds.append(i)
-#     return allIds
-
 def getGlobalHighest(ranges):
     globalHighest = 0
     for theRange in ranges:
