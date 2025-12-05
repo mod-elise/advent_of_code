@@ -1,5 +1,5 @@
 try:
-    with open('input.txt', 'r') as file:
+    with open('in33put.txt', 'r') as file:
         print ("found file")
         rows = file.read().splitlines()
 except FileNotFoundError:
@@ -8,7 +8,14 @@ except FileNotFoundError:
 3-5
 10-14
 16-20
-12-18""".strip().splitlines()
+12-18
+
+1
+5
+8
+11
+17
+32""".strip().splitlines()
         
 def getRangeEdges(range):
     theRange = range.split('-')
@@ -69,7 +76,7 @@ for id in ids:
 
 print (f'There are {freshCount} fresh items in stock')
 
-# ---------------part 2--------------#
+# ---------------part 2--------------# 
 i=0
 freshCount = 0
 globalHighest = getGlobalHighest(ranges)
