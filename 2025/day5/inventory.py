@@ -69,7 +69,7 @@ for id in ids:
 
 print (f'There are {freshCount} fresh items in stock')
 
-# ---------------part 2--------------#
+# ---------------part 2--------------# 
 i=0
 freshCount = 0
 globalHighest = getGlobalHighest(ranges)
