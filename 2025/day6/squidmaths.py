@@ -57,8 +57,59 @@ def findLongestNumber(problem):
             longest_number = len(number) 
     return longest_number
 
-def squidify(problems):
-    exit()
+def final_column_width(sheet):
+    max_width = 0
+    for row in sheet:
+        row_length = len(row.rstrip())
+        if row_length > max_width:
+            max_width = row_length
+    return max_width
+
+def rightmost_problems_width(sheet):
+    for row in sheet:
+        if row[len(row)-1].isnumeric():
+            character = '*'
+            column_width = 1
+            while character != " ":
+                column_width +=1
+                try:
+                    character = row[len(row)-column_width]
+                except:
+                    column_width = final_column_width(sheet) +1
+                    character = " "
+    return column_width -1
+
+def construct_squid_numbers(numbers, column_width):
+    numbers_to_calc = []
+    constructed_numbers = []
+    numbers_to_calc = []
+    for number in numbers:
+        final_column = number[-1:]
+        if final_column.isnumeric():
+            numbers_to_calc.append(final_column)
+    constructed_numbers.append(''.join(numbers_to_calc))
+    
+    for i in range (2, column_width+1,1):
+        numbers_to_calc= []
+        for number in numbers:
+            final_column = number[-i:-(i-1)]
+            if final_column.isnumeric():
+                numbers_to_calc.append(final_column)
+        constructed_numbers.append(''.join(numbers_to_calc))
+    return constructed_numbers
+
+def squid_calc(constructed_numbers, operator):
+    if operator == '+':
+        solution = 0
+        for number in constructed_numbers:
+            solution += int(number)
+    if operator == '*':
+        solution = 1
+        for number in constructed_numbers:
+            solution *= int(number)
+    return solution
+# ____________________________________________________________________________________________________
+
 
 maths_roll = make_horizontal(sheet)
 problems =  make_vertical(maths_roll)
@@ -68,52 +119,25 @@ print (f'solution to part 1 is {solve_problems(problems)}')
 
 print ("---part 2 incomplete ---")
 
-rightmost_problems = []
+sheet_length = len(sheet[0])
 
-for row in sheet:
-    if row[len(row)-1].isnumeric():
-        character = '*'
-        column_width = 1
-        while character != " ":
-            column_width +=1
-            character = row[len(row)-column_width]
-        print (f'longest number is {column_width-1} digits long')
+while sheet_length > 1:
+    updated_sheet = []
+    rightmost_problems = []
+    column_width = rightmost_problems_width(sheet)
+    for row in sheet:
+        rightmost_problems.append(row[len(row)-column_width:])  
 
-for row in sheet:
-    rightmost_problems.append(row[len(row)-column_width:])  
+    operator = rightmost_problems[-1].strip()
+    numbers = rightmost_problems[:-1]
 
-operator = rightmost_problems[-1].strip()
-numbers = rightmost_problems[:-1]
-numbers_to_calc = []
+    constructed_numbers = construct_squid_numbers(numbers, column_width)
+    solution = squid_calc(constructed_numbers, operator)
+    sheet_length = len(sheet[0])
 
-constructed_numbers = []
+    for row in sheet:
+        updated_sheet.append(row[:-column_width-1])
+    sheet = updated_sheet
+    sheet_length = len(sheet[0])
 
-numbers_to_calc = []
-for number in numbers:
-    final_column = number[-1:]
-    if final_column.isnumeric():
-        numbers_to_calc.append(final_column)
-
-constructed_numbers.append(''.join(numbers_to_calc))
-numbers_to_calc= []
-for number in numbers:
-    final_column = number[-2:-1]
-    if final_column.isnumeric():
-        numbers_to_calc.append(final_column)
-
-constructed_numbers.append(''.join(numbers_to_calc))
-numbers_to_calc= []
-for number in numbers:
-    final_column = number[-3:-2]
-    if final_column.isnumeric():
-        numbers_to_calc.append(final_column)
-constructed_numbers.append(''.join(numbers_to_calc))
-
-print (f'squid numbers are {constructed_numbers}')
-
-if operator == '+':
-    solution = 0
-    for number in constructed_numbers:
-        solution += int(number)
-
-print (f'the answer to the right most column is {solution}')
+    print (f'the answer to {constructed_numbers} - {operator}  is {solution}')
