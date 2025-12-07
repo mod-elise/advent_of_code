@@ -77,32 +77,43 @@ for row in sheet:
         while character != " ":
             column_width +=1
             character = row[len(row)-column_width]
-        print (f'longest number is {column_width-1}')
+        print (f'longest number is {column_width-1} digits long')
 
 for row in sheet:
     rightmost_problems.append(row[len(row)-column_width:])  
 
 operator = rightmost_problems[-1].strip()
 numbers = rightmost_problems[:-1]
-print (f'numbers are {numbers}')
-print (f'operator is {operator}')
 numbers_to_calc = []
 
+constructed_numbers = []
 
+numbers_to_calc = []
 for number in numbers:
-    print (f'The number is: {number}')
     final_column = number[-1:]
     if final_column.isnumeric():
-        numbers_to_calc.append(int(final_column))
+        numbers_to_calc.append(final_column)
 
+constructed_numbers.append(''.join(numbers_to_calc))
+numbers_to_calc= []
+for number in numbers:
+    final_column = number[-2:-1]
+    if final_column.isnumeric():
+        numbers_to_calc.append(final_column)
+
+constructed_numbers.append(''.join(numbers_to_calc))
+numbers_to_calc= []
+for number in numbers:
+    final_column = number[-3:-2]
+    if final_column.isnumeric():
+        numbers_to_calc.append(final_column)
+constructed_numbers.append(''.join(numbers_to_calc))
+
+print (f'squid numbers are {constructed_numbers}')
 
 if operator == '+':
-    result = sum(numbers_to_calc)
-if operator == '*':
-    result = 1
-    for num in numbers_to_calc:
-        result *= num
+    solution = 0
+    for number in constructed_numbers:
+        solution += int(number)
 
-print (result)
-
-print (rightmost_problems)
+print (f'the answer to the right most column is {solution}')
