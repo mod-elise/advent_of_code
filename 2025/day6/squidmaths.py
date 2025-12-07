@@ -1,7 +1,5 @@
-import re
-
 try:
-    with open('1input.txt', 'r') as file:
+    with open('input.txt', 'r') as file:
         print ("found file")
         sheet = file.read().splitlines()
 except FileNotFoundError:
@@ -50,22 +48,8 @@ def solve_problems(problems):
         total += solution
     return total
      
-def findLongestNumber(problem):
-    longest_number = 0
-    for number in problem[:-1]:
-        if len(number) > longest_number:
-            longest_number = len(number) 
-    return longest_number
-
-def final_column_width(sheet):
-    max_width = 0
-    for row in sheet:
-        row_length = len(row.rstrip())
-        if row_length > max_width:
-            max_width = row_length
-    return max_width
-
 def rightmost_problems_width(sheet):
+    max_width = 0
     for row in sheet:
         if row[len(row)-1].isnumeric():
             character = '*'
@@ -75,12 +59,12 @@ def rightmost_problems_width(sheet):
                 try:
                     character = row[len(row)-column_width]
                 except:
-                    column_width = final_column_width(sheet) +1
                     character = " "
-    return column_width -1
+            if column_width > max_width:
+                max_width = column_width
+    return max_width -1
 
 def construct_squid_numbers(numbers, column_width):
-    numbers_to_calc = []
     constructed_numbers = []
     numbers_to_calc = []
     for number in numbers:
@@ -121,6 +105,7 @@ print ("---part 2 incomplete ---")
 
 sheet_length = len(sheet[0])
 
+grand_total = 0
 while sheet_length > 1:
     updated_sheet = []
     rightmost_problems = []
@@ -132,12 +117,13 @@ while sheet_length > 1:
     numbers = rightmost_problems[:-1]
 
     constructed_numbers = construct_squid_numbers(numbers, column_width)
+    constructed_numbers = [x for x in constructed_numbers if x]
     solution = squid_calc(constructed_numbers, operator)
-    sheet_length = len(sheet[0])
+    grand_total += solution
 
     for row in sheet:
         updated_sheet.append(row[:-column_width-1])
     sheet = updated_sheet
     sheet_length = len(sheet[0])
 
-    print (f'the answer to {constructed_numbers} - {operator}  is {solution}')
+print (f'the grand total is {grand_total}')
